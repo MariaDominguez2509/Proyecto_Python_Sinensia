@@ -1,3 +1,6 @@
+from Producto import Producto
+from Empresa import Empresa
+
 class Persona: 
     registro = []
     documentos = set()
@@ -16,27 +19,28 @@ class Cliente(Persona):
         super().__init__(nombre,DNI)
         Persona.registro.append((self.nombre, "Cliente"))
 
-    def compra(self, objeto, empresa, empleado):
-        if not insinstance(empresa, Empresa):
+    def compra(self, producto, empresa, empleado):
+        if not isinstance(empresa, Empresa):
             print("No es una empresa")
+            if not isinstance(producto, Producto):
+                print(producto.nombre, "no es un producto")
         else:
-            if empresa not in Empresa.registro: 
-                print("Empresa no encontrada")
-            else: 
-                print("Ha comprado", objeto, "de", empresa.nombre, "y se lo vendió", empleado.nombre)
+            print(self.nombre, "ha comprado", producto.nombre, "de", empresa.nombre, "y se lo vendió", empleado.nombre)
+        
 
 class Empleado(Persona):
     def __init__(self, nombre, DNI): 
         super().__init__(nombre, DNI)
         Persona.registro.append((self.nombre, "Empleado"))
-    def vende(self, objeto, cliente): 
-        print("Ha vendido", objeto, "a", cliente.nombre)
+    def vende(self, producto, cliente): 
+        if not isinstance(producto, Producto): 
+            print(producto.nombre, "no es un producto")
+        else:
+            print(self.nombre, "ha vendido", producto.nombre, "a", cliente.nombre)
+   
 
     def trabaja(self, empresa): 
-        if not insinstance(empresa, Empresa):
+        if not isinstance(empresa, Empresa):
             print("No es una empresa")
         else:
-            if empresa not in Empresa.registro: 
-                print("Empresa no encontrada")
-            else: 
-                print("Trabaja para", empresa.nombre)
+            print("Trabaja para", empresa.nombre)
