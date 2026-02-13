@@ -1,5 +1,6 @@
 from Producto import Producto
 from Empresa import Empresa
+from abc import ABC, abstractmethod
 
 class Persona: 
     registro = []
@@ -14,6 +15,14 @@ class Persona:
             Persona.documentos.add(DNI)
             print("Persona creada")
 
+    @abstractmethod
+    def presentacion(self):
+        pass
+
+    @staticmethod
+    def estatico(): 
+        print("Prueba de método estático") 
+
 class Cliente(Persona): 
     def __init__(self, nombre, DNI):
         super().__init__(nombre,DNI)
@@ -26,7 +35,13 @@ class Cliente(Persona):
                 print(producto.nombre, "no es un producto")
         else:
             print(self.nombre, "ha comprado", producto.nombre, "de", empresa.nombre, "y se lo vendió", empleado.nombre)
-        
+
+    def presentacion(self):
+        print("Soy", self.nombre, "y soy un Cliente")  
+
+    @staticmethod
+    def estatico():
+        print("Funciona cuando lo cambio?")
 
 class Empleado(Persona):
     def __init__(self, nombre, DNI): 
@@ -44,3 +59,6 @@ class Empleado(Persona):
             print("No es una empresa")
         else:
             print("Trabaja para", empresa.nombre)
+    
+    def presentacion(self):
+        print("Soy", self.nombre, "y soy un Empleado")
