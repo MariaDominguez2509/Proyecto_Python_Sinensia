@@ -20,13 +20,21 @@ class Persona:
         pass
 
     @staticmethod
+    def encontrar(dni): 
+        a = {x[2]: x for x in Persona.registro}
+        if dni in a: 
+            print("El nombre de la persona con DNI", dni, "es", a[dni][0])
+        else: 
+            print("Persona no encontrada")
+
+    @staticmethod
     def estatico(): 
         print("Prueba de método estático") 
 
 class Cliente(Persona): 
     def __init__(self, nombre, DNI):
         super().__init__(nombre,DNI)
-        Persona.registro.append((self.nombre, "Cliente"))
+        Persona.registro.append((self.nombre, "Cliente", self.DNI))
 
     def compra(self, producto, empresa, empleado):
         if not isinstance(empresa, Empresa):
@@ -46,7 +54,7 @@ class Cliente(Persona):
 class Empleado(Persona):
     def __init__(self, nombre, DNI): 
         super().__init__(nombre, DNI)
-        Persona.registro.append((self.nombre, "Empleado"))
+        Persona.registro.append((self.nombre, "Empleado", self.DNI))
     def vende(self, producto, cliente): 
         if not isinstance(producto, Producto): 
             print(producto.nombre, "no es un producto")
